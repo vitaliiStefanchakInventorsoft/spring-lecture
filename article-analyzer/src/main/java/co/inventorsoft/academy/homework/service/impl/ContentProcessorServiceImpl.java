@@ -1,8 +1,8 @@
-package co.inventorsoft.academy.homework;
+package co.inventorsoft.academy.homework.service.impl;
 
-import co.inventorsoft.academy.homework.config.HelperWordsConfig;
 import co.inventorsoft.academy.homework.model.Article;
-import org.springframework.beans.factory.annotation.Autowired;
+import co.inventorsoft.academy.homework.service.ContentProcessorService;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.Collections;
@@ -13,13 +13,10 @@ import java.util.Map;
 import java.util.Set;
 
 @Component
-public class ContentProcessor {
-    private final HelperWordsConfig helperWordsConfig;
+public class ContentProcessorServiceImpl implements ContentProcessorService {
 
-    @Autowired
-    public ContentProcessor(HelperWordsConfig helperWordsConfig) {
-        this.helperWordsConfig = helperWordsConfig;
-    }
+    @Value("#{'${helper.words}'.split(', ')}")
+    private Set<String> helperWords;
 
     public Set<String> process(List<Article> articles) {
         Map<String, Integer> wordCounts = new HashMap<>();
@@ -27,7 +24,7 @@ public class ContentProcessor {
         for (Article article : articles) {
             String[] words = article.getContent().toLowerCase().split(" ");
             for (String word : words) {
-                if (!helperWordsConfig.getHelperWords().contains(word)) {
+                if (!helperWords.contains(word)) {
                     wordCounts.put(word, wordCounts.getOrDefault(word, 0) + 1);
                 }
             }

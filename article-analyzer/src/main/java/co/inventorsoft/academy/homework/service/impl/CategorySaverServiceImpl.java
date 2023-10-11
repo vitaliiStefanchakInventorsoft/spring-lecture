@@ -1,7 +1,9 @@
-package co.inventorsoft.academy.homework;
+package co.inventorsoft.academy.homework.service.impl;
 
+import co.inventorsoft.academy.homework.service.CategorySaverService;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
@@ -15,15 +17,16 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Component
-public class CategorySaver {
-    private static final String FILEPATH = "src/main/resources/categories.json";
+@AllArgsConstructor
+public class CategorySaverServiceImpl implements CategorySaverService {
+    private static final String CATEGORIES_FILE_PATH = "src/main/resources/categories.json";
+
+    private final Gson gson;
 
     public void saveCategory(Set<String> newCategories) {
-        Gson gson = new Gson();
-
         Set<String> allCategories = new HashSet<>(newCategories);
 
-        File file = new File(FILEPATH);
+        File file = new File(CATEGORIES_FILE_PATH);
         if (!file.exists()) {
             try {
                 file.createNewFile();
