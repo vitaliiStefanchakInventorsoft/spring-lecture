@@ -1,9 +1,6 @@
-package com.example.demo.util;
+package com.example.demo.service.notifications;
 
 import com.example.demo.model.NotificationType;
-import com.example.demo.service.notifications.EmailNotificationService;
-import com.example.demo.service.notifications.NotificationService;
-import com.example.demo.service.notifications.SlackNotificationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

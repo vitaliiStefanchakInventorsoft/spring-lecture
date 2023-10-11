@@ -9,6 +9,6 @@ import org.springframework.stereotype.Service;
 public class SlackNotificationService implements NotificationService {
   @Override
   public void sendNotification(Message message) {
-    log.info("slack message with text: {}  was sent to {}",message.getText(), message.getReceiver().getEmail());
+    log.info("slack message with text: {}  was sent to {}",message.getText(), message.getReceiver().getSlackId());
   }
 }
