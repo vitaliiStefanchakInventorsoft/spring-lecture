@@ -10,4 +10,5 @@ public class EmailNotificationService extends NotificationService {
     protected void notifySubscriber(Subscriber subscriber, String content) {
         System.out.printf("    Sending email ---> Header: Hello subscriber %s! The new article is here | Content: %s%n", subscriber.getEmail(), content);
     }
+
 }
