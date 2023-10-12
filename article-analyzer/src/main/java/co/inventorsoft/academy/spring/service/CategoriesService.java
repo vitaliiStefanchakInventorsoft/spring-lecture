@@ -15,13 +15,12 @@ import java.util.List;
 import java.util.Map;
 
 @Data
-@RequiredArgsConstructor
 @Service
 public class CategoriesService {
 
     private final Gson gson;
 
-    public void createCategoriesFile(List<List<String>> splitWords) throws IOException {
+    public void createCategoriesFile(List<List<String>> splitWords){
         try (Writer writer = new FileWriter("article-analyzer/src/main/resources/categories.json")) {
 
             List<String> categories = new ArrayList<>();
@@ -55,6 +54,8 @@ public class CategoriesService {
             });
 
             gson.toJson(categories, writer);
+        } catch (IOException e) {
+            e.getStackTrace();
         }
     }
 }

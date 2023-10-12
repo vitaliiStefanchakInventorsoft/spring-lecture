@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.stream.Stream;
 
 @Data
-@RequiredArgsConstructor
 @Service
 public class ArticleService {
 
@@ -20,7 +19,7 @@ public class ArticleService {
 
     private final ArticleRepository articleRepository;
 
-    public List<List<String>> splitArticleWords() throws FileNotFoundException {
+    public List<List<String>> splitArticleWords(){
 
         return articleRepository.fetchAllArticles()
                 .stream()

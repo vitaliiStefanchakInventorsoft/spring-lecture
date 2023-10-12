@@ -17,10 +17,15 @@ public class ArticleRepository {
 
     private final Gson gson;
 
-    public List<Article> fetchAllArticles() throws FileNotFoundException {
+    public List<Article> fetchAllArticles(){
         Type listType = new TypeToken<List<Article>>() {
         }.getType();
-        return gson.fromJson(new FileReader("article-analyzer/src/main/resources/articles.json"), listType);
+        try {
+            return gson.fromJson(new FileReader("article-analyzer/src/main/resources/articles.json"), listType);
+        } catch (FileNotFoundException e) {
+            e.getStackTrace();
+            return null;
+        }
 
     }
 }

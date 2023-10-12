@@ -17,10 +17,15 @@ public class UserRepository {
 
     private final Gson gson;
 
-    public List<User> fetchAllUsers() throws FileNotFoundException {
+    public List<User> fetchAllUsers(){
         Type listType = new TypeToken<List<User>>() {
         }.getType();
-        return gson.fromJson(new FileReader("article-analyzer/src/main/resources/users.json"), listType);
+        try {
+            return gson.fromJson(new FileReader("article-analyzer/src/main/resources/users.json"), listType);
+        } catch (FileNotFoundException e) {
+            e.getStackTrace();
+            return null;
+        }
 
     }
 }

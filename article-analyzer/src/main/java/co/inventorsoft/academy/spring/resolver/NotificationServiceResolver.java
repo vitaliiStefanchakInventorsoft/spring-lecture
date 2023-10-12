@@ -14,27 +14,12 @@ import java.io.FileNotFoundException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Data
 @AllArgsConstructor
 @Component
 public class NotificationServiceResolver {
-
-    /*private EmailNotificationService emailNF;
-    private SlackNotificationService slackNF;
-    public NotificationService getNotificationService(NotificationType type){
-        switch (type) {
-            case EMAIL -> {
-                return emailNF;
-            }
-            case SLACK -> {
-                return slackNF;
-            }
-            default -> {
-                return null;
-            }
-        }
-    }*/
 
     private List<Class<? extends NotificationService>> notificationServices;
 
@@ -48,18 +33,26 @@ public class NotificationServiceResolver {
 
     }
 
-    public NotificationService getNotificationService(NotificationType type) throws InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
+    public NotificationService getNotificationService(NotificationType type){
 
         for (Class<? extends NotificationService> serviceClazz : notificationServices) {
-            NotificationService nfs = serviceClazz.getDeclaredConstructor().newInstance();
-            if (type == nfs.getType()) {
+            NotificationService nfs = null;
+            try {
+                nfs = serviceClazz.getDeclaredConstructor().newInstance();
+            } catch (InstantiationException |
+                     IllegalAccessException |
+                     InvocationTargetException |
+                     NoSuchMethodException e) {
+                e.getStackTrace();
+            }
+            if (type == Objects.requireNonNull(nfs).getType()) {
                 return nfs;
             }
         }
         return null;
     }
 
-    public void notifyAllUsers() throws FileNotFoundException, InvocationTargetException, InstantiationException, IllegalAccessException, NoSuchMethodException {
+    public void notifyAllUsers(){
         for (var user : userRepository.fetchAllUsers()) {
             getNotificationService(user.getNotificationType())
                     .notifyUser(user, "asdadfgdsfsd");
