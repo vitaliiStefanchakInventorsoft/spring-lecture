@@ -10,7 +10,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Service;
 
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -25,5 +24,6 @@ public abstract class NotificationService {
     private NotificationType type = null;
 
     private NotificationServiceResolver resolver;
+
     public abstract void notifyUser(User user, String content);
 }

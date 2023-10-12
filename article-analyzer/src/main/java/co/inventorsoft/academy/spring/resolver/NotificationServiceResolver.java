@@ -52,7 +52,7 @@ public class NotificationServiceResolver {
 
         for (Class<? extends NotificationService> serviceClazz : notificationServices) {
             NotificationService nfs = serviceClazz.getDeclaredConstructor().newInstance();
-            if (type==nfs.getType()){
+            if (type == nfs.getType()) {
                 return nfs;
             }
         }
@@ -60,7 +60,7 @@ public class NotificationServiceResolver {
     }
 
     public void notifyAllUsers() throws FileNotFoundException, InvocationTargetException, InstantiationException, IllegalAccessException, NoSuchMethodException {
-        for (var user: userRepository.fetchAllUsers()) {
+        for (var user : userRepository.fetchAllUsers()) {
             getNotificationService(user.getNotificationType())
                     .notifyUser(user, "asdadfgdsfsd");
         }

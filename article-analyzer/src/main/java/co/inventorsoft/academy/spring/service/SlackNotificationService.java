@@ -4,8 +4,6 @@ import co.inventorsoft.academy.spring.model.NotificationType;
 import co.inventorsoft.academy.spring.model.User;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 @Data
