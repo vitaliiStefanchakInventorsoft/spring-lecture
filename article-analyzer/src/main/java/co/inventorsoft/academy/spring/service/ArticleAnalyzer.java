@@ -3,10 +3,11 @@ package co.inventorsoft.academy.spring.service;
 import co.inventorsoft.academy.spring.repository.CategoryRepository;
 import co.inventorsoft.academy.spring.resolver.NotificationServiceResolver;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import org.springframework.stereotype.Service;
 
-@Data
+import java.util.List;
+import java.util.Set;
+
 @AllArgsConstructor
 @Service
 public class ArticleAnalyzer {
@@ -17,9 +18,12 @@ public class ArticleAnalyzer {
     private NotificationServiceResolver notificationServiceResolver;
 
     public void articleAnalyze(){
-        categoryRepository.saveCategories(
-                categoryService.fetchCategories(
-                        articleService.getSplittedArticleWords()));
+        List<List<String>> splittedWords = articleService.getSplittedArticleWords();
+
+        Set<String> categories = categoryService.fetchCategories(splittedWords);
+
+        categoryRepository.saveCategories(categories);
+
         notificationServiceResolver.notifyAllUsers();
     }
 }

@@ -6,13 +6,8 @@ import co.inventorsoft.academy.spring.service.EmailNotificationService;
 import co.inventorsoft.academy.spring.service.NotificationService;
 import co.inventorsoft.academy.spring.service.SlackNotificationService;
 import lombok.AllArgsConstructor;
-import lombok.Data;
-
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-@Getter
 @AllArgsConstructor
 @Component
 public class NotificationServiceResolver {
