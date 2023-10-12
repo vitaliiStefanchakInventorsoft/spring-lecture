@@ -1,6 +1,7 @@
 package co.inventorsoft.academy.homework.nofifier.impl;
 
 import co.inventorsoft.academy.homework.model.Article;
+import co.inventorsoft.academy.homework.model.NotificationType;
 import co.inventorsoft.academy.homework.model.User;
 import co.inventorsoft.academy.homework.nofifier.NotificationService;
 import org.springframework.stereotype.Service;
@@ -14,7 +15,8 @@ public class EmailNotificationServiceImpl implements NotificationService {
     }
 
     @Override
-    public String getSenderIdentifier() {
-        return "EMAIL";
+    public NotificationType getSenderIdentifier() {
+
+        return NotificationType.EMAIL;
     }
 }
