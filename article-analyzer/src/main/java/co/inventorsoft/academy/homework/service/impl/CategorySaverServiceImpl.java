@@ -23,14 +23,15 @@ import java.util.Set;
 @Component
 @AllArgsConstructor
 public class CategorySaverServiceImpl implements CategorySaverService {
-    private static final String CATEGORIES_FILE_PATH = "article-analyzer/src/main/resources/categories.json";
+
+    private Path categoriesFilePath;
 
     private final Gson gson;
 
     public void saveCategory(Set<String> newCategories) {
         Set<String> allCategories = new HashSet<>(newCategories);
 
-        Path path = Paths.get(CATEGORIES_FILE_PATH);
+        Path path = Paths.get(categoriesFilePath.toUri());
         File file = path.toFile();
         if (!file.exists()) {
             try {
