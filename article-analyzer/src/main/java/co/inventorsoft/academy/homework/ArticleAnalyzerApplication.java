@@ -39,7 +39,7 @@ public class ArticleAnalyzerApplication {
 
         for (User user : userList) {
             for (NotificationService notificationService : notificationServiceList) {
-                if (notificationService.getSenderIdentifier().equals(user.getNotificationType())){
+                if (notificationService.getSenderIdentifier().equals(user.getNotificationType().name())) {
                     for (Article article : articleList) {
                         notificationService.notify(user, article);
                     }
