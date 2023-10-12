@@ -7,52 +7,35 @@ import co.inventorsoft.academy.spring.service.NotificationService;
 import co.inventorsoft.academy.spring.service.SlackNotificationService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import org.springframework.beans.factory.annotation.Autowired;
+
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.io.FileNotFoundException;
-import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-
-@Data
+@Getter
 @AllArgsConstructor
 @Component
 public class NotificationServiceResolver {
 
-    private List<Class<? extends NotificationService>> notificationServices;
-
-    @Autowired
+    private EmailNotificationService emailNF;
+    private SlackNotificationService slackNF;
     private UserRepository userRepository;
 
-    public NotificationServiceResolver() {
-        notificationServices = new ArrayList<>();
-        notificationServices.add(SlackNotificationService.class);
-        notificationServices.add(EmailNotificationService.class);
-
-    }
-
-    public NotificationService getNotificationService(NotificationType type){
-
-        for (Class<? extends NotificationService> serviceClazz : notificationServices) {
-            NotificationService nfs = null;
-            try {
-                nfs = serviceClazz.getDeclaredConstructor().newInstance();
-            } catch (InstantiationException |
-                     IllegalAccessException |
-                     InvocationTargetException |
-                     NoSuchMethodException e) {
-                e.getStackTrace();
+    public NotificationService getNotificationService(NotificationType type) {
+        switch (type) {
+            case EMAIL -> {
+                return emailNF;
             }
-            if (type == Objects.requireNonNull(nfs).getType()) {
-                return nfs;
+            case SLACK -> {
+                return slackNF;
+            }
+            default -> {
+                return null;
             }
         }
-        return null;
     }
 
-    public void notifyAllUsers(){
+    public void notifyAllUsers() {
         for (var user : userRepository.fetchAllUsers()) {
             getNotificationService(user.getNotificationType())
                     .notifyUser(user, "asdadfgdsfsd");

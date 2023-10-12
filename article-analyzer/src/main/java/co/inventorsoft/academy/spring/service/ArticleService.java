@@ -1,16 +1,14 @@
 package co.inventorsoft.academy.spring.service;
 
 import co.inventorsoft.academy.spring.repository.ArticleRepository;
-import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.stream.Stream;
 
-@Data
+@RequiredArgsConstructor
 @Service
 public class ArticleService {
 
@@ -19,7 +17,7 @@ public class ArticleService {
 
     private final ArticleRepository articleRepository;
 
-    public List<List<String>> splitArticleWords(){
+    public List<List<String>> getSplittedArticleWords(){
 
         return articleRepository.fetchAllArticles()
                 .stream()

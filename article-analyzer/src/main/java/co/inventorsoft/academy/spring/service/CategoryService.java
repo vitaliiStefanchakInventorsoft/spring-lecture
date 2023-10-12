@@ -1,29 +1,19 @@
 package co.inventorsoft.academy.spring.service;
 
-import com.google.gson.Gson;
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.Writer;
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
-@Data
 @Service
-public class CategoriesService {
+public class CategoryService {
 
-    private final Gson gson;
-
-    public void createCategoriesFile(List<List<String>> splitWords){
-        try (Writer writer = new FileWriter("article-analyzer/src/main/resources/categories.json")) {
-
-            List<String> categories = new ArrayList<>();
+    public Set<String> fetchCategories(List<List<String>> splitWords){
+            Set<String> categories = new HashSet<>();
 
             splitWords.forEach(strings -> {
 
@@ -52,10 +42,6 @@ public class CategoriesService {
                         .toList());
 
             });
-
-            gson.toJson(categories, writer);
-        } catch (IOException e) {
-            e.getStackTrace();
-        }
+            return categories;
     }
 }

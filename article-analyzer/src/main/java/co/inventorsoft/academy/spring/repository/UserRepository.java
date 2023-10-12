@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.lang.reflect.Type;
+import java.util.Arrays;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -23,7 +24,7 @@ public class UserRepository {
         try {
             return gson.fromJson(new FileReader("article-analyzer/src/main/resources/users.json"), listType);
         } catch (FileNotFoundException e) {
-            e.getStackTrace();
+            System.out.println(Arrays.toString(e.getStackTrace()));
             return null;
         }
 
