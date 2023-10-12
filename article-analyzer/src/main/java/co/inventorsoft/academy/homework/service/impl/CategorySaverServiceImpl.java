@@ -13,6 +13,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
 import java.lang.reflect.Type;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -20,16 +23,18 @@ import java.util.Set;
 @Component
 @AllArgsConstructor
 public class CategorySaverServiceImpl implements CategorySaverService {
-    private static final String CATEGORIES_FILE = "categories.json";
+    private static final String CATEGORIES_FILE_PATH = "article-analyzer/src/main/resources/categories.json";
 
     private final Gson gson;
 
     public void saveCategory(Set<String> newCategories) {
         Set<String> allCategories = new HashSet<>(newCategories);
 
-        File file = new File(CATEGORIES_FILE);
+        Path path = Paths.get(CATEGORIES_FILE_PATH);
+        File file = path.toFile();
         if (!file.exists()) {
             try {
+                Files.createDirectories(path.getParent());
                 file.createNewFile();
             } catch (IOException e) {
                 System.out.println("Creating error " + e.getMessage());
