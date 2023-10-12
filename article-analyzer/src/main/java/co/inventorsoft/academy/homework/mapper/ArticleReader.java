@@ -6,9 +6,10 @@ import com.google.gson.reflect.TypeToken;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,14 +19,21 @@ import java.util.List;
 public class ArticleReader {
     private final Gson gson;
 
-    public List<Article> jsonToListArticles(File jsonFile) {
-        Type articleListType = new TypeToken<List<Article>>() {
-        }.getType();
-        try (FileReader reader = new FileReader(jsonFile)) {
+    public List<Article> jsonToListArticles(String fileName) {
+        InputStream is = getClass().getResourceAsStream("/" + fileName);
+        if (is == null) {
+            System.out.println("File not found: " + fileName);
+            return new ArrayList<>();
+        }
+
+        try (Reader reader = new InputStreamReader(is)) {
+            Type articleListType = new TypeToken<List<Article>>(){}.getType();
             return gson.fromJson(reader, articleListType);
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            System.out.println("Error reading json " + e.getMessage());
         }
         return new ArrayList<>();
     }
+
+
 }

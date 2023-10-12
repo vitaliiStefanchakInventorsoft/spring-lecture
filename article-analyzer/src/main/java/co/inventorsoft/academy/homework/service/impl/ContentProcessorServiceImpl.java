@@ -7,10 +7,10 @@ import org.springframework.stereotype.Component;
 
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Component
 public class ContentProcessorServiceImpl implements ContentProcessorService {
@@ -22,7 +22,7 @@ public class ContentProcessorServiceImpl implements ContentProcessorService {
         Map<String, Integer> wordCounts = new HashMap<>();
 
         for (Article article : articles) {
-            String[] words = article.getContent().toLowerCase().split(" ");
+            String[] words = article.getContent().toLowerCase().split("\\W+");
             for (String word : words) {
                 if (!helperWords.contains(word)) {
                     wordCounts.put(word, wordCounts.getOrDefault(word, 0) + 1);
@@ -30,16 +30,17 @@ public class ContentProcessorServiceImpl implements ContentProcessorService {
             }
         }
 
-        int maxCount = Collections.max(wordCounts.values());
-
-        Set<String> categories = new HashSet<>();
-
-        for (Map.Entry<String, Integer> entry : wordCounts.entrySet()) {
-            if (entry.getValue() == maxCount) {
-                categories.add(entry.getKey());
-            }
+        int maxCount;
+        if (!wordCounts.isEmpty()) {
+            maxCount = Collections.max(wordCounts.values());
+        } else {
+            maxCount = 0;
+            System.out.println("No words to process");
         }
 
-        return categories;
+        return wordCounts.entrySet().stream()
+                .filter(entry -> entry.getValue() == maxCount)
+                .map(Map.Entry::getKey)
+                .collect(Collectors.toSet());
     }
 }

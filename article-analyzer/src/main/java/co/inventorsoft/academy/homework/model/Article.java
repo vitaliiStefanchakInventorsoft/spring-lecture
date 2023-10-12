@@ -6,7 +6,7 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class Article {
-    private Long id;
+    private int id;
 
     private String name;
 

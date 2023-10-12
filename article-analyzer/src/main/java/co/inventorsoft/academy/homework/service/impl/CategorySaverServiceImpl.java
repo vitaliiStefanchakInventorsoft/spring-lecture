@@ -13,20 +13,21 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
 import java.lang.reflect.Type;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
 @Component
 @AllArgsConstructor
 public class CategorySaverServiceImpl implements CategorySaverService {
-    private static final String CATEGORIES_FILE_PATH = "src/main/resources/categories.json";
+    private static final String CATEGORIES_FILE = "categories.json";
 
     private final Gson gson;
 
     public void saveCategory(Set<String> newCategories) {
         Set<String> allCategories = new HashSet<>(newCategories);
 
-        File file = new File(CATEGORIES_FILE_PATH);
+        File file = new File(CATEGORIES_FILE);
         if (!file.exists()) {
             try {
                 file.createNewFile();
@@ -39,7 +40,10 @@ public class CategorySaverServiceImpl implements CategorySaverService {
         }.getType();
 
         try {
-            allCategories.addAll(gson.fromJson(new FileReader(file), setType));
+            Collection<String> categoriesFromFile = gson.fromJson(new FileReader(file), setType);
+            if (categoriesFromFile != null) {
+                allCategories.addAll(categoriesFromFile);
+            }
         } catch (FileNotFoundException e) {
             System.out.println("File not found " + e.getMessage());
         }

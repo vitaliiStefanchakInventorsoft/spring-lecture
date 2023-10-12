@@ -13,7 +13,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 
-import java.io.File;
 import java.util.List;
 import java.util.Set;
 
@@ -32,14 +31,21 @@ public class ArticleAnalyzerApplication {
 
     @EventListener(ContextRefreshedEvent.class)
     public void runOnStartUp() {
-        List<Article> articleList = articleReader.jsonToListArticles(new File(ARTICLES_FILE));
+        List<Article> articleList = articleReader.jsonToListArticles(ARTICLES_FILE);
         Set<String> categories = contentProcessorServiceImpl.process(articleList);
+        categorySaverServiceImpl.saveCategory(categories);
 
-        List<User> userList = userReader.jsonToListUsers(new File(USERS_FILE));
+        List<User> userList = userReader.jsonToListUsers(USERS_FILE);
 
-        userList.forEach(user -> notificationServiceList.stream()
-                .filter(service -> service.getSenderIdentifier().equals(user.getNotificationType()))
-                .forEach(service -> articleList.forEach(article -> service.notify(user, article))));
+        for (User user : userList) {
+            for (NotificationService notificationService : notificationServiceList) {
+                if (notificationService.getSenderIdentifier().equals(user.getNotificationType())){
+                    for (Article article : articleList) {
+                        notificationService.notify(user, article);
+                    }
+                }
+            }
+        }
     }
 
     public static void main(String[] args) {
