@@ -1,0 +1,37 @@
+[
+  {
+    "id": 1,
+    "username": "user_one",
+    "email": "user.one@mail.com",
+    "slackId": "sometestid1",
+    "notificationType": "EMAIL"
+  },
+  {
+    "id": 2,
+    "username": "user_two",
+    "email": "user.two@mail.com",
+    "slackId": "sometestid2",
+    "notificationType": "SLACK"
+  },
+  {
+    "id": 3,
+    "username": "user_three",
+    "email": "user.three@mail.com",
+    "slackId": "sometestid1",
+    "notificationType": "SLACK"
+  },
+  {
+    "id": 4,
+    "username": "user_four",
+    "email": "user.four@mail.com",
+    "slackId": "sometestid1",
+    "notificationType": "SLACK"
+  },
+  {
+    "id": 5,
+    "username": "user_five",
+    "email": "user.five@mail.com",
+    "slackId": "sometestid1",
+    "notificationType": "EMAIL"
+  }
+]
