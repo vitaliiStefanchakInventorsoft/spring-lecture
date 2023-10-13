@@ -18,7 +18,7 @@ public class NotificationManager {
 
     public void sendNotifications() {
         List<User> users = userService.getUsers();
-        if (users != null) {
+        if (!users.isEmpty()) {
             users.forEach(user -> {
                 switch (user.getNotificationType()) {
                     case EMAIL -> emailNotificationService.notifyUser(user, "Your email notification message");
