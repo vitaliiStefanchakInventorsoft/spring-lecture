@@ -1,13 +1,13 @@
 [
   {
-    "id": 1,
+    "id": "123e4567-e89b-12d3-a456-426614174001",
     "username": "user_one",
     "email": "user.one@mail.com",
     "slackId": "sometestid1",
     "notificationType": "EMAIL"
   },
   {
-    "id": 2,
+    "id": "123e4567-e89b-12d3-a456-426614174002",
     "username": "user_two",
     "email": "user.two@mail.com",
     "slackId": "sometestid2",
