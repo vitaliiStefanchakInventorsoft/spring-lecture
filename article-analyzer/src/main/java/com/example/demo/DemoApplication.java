@@ -10,13 +10,12 @@ import org.springframework.context.ConfigurableApplicationContext;
 public class DemoApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(DemoApplication.class, args);
 
-		ConfigurableApplicationContext applicationContext = SpringApplication.run(Main.class, args);
+		ConfigurableApplicationContext applicationContext = SpringApplication.run(DemoApplication.class, args);
 
 		ArticleService articleService = applicationContext.getBean(ArticleService.class);
-
 		articleService.processArticles();
+		articleService.notifyUsers();
 	}
 
 
