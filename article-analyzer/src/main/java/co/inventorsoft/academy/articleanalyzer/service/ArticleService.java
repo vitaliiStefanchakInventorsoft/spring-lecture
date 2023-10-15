@@ -33,8 +33,6 @@ public class ArticleService {
         this.categoryRepository = categoryRepository;
         this.analyzerService = analyzerService;
         this.applicationContext = applicationContext;
-
-        analyze();
     }
 
     public void analyze() {
