@@ -38,7 +38,7 @@ public class ArticleService {
         if (reviewResult) {
             notificationService.notify(article);
         } else {
-           throw new RuntimeException("Publishing process is interrupted: Review failed!");
+            throw new RuntimeException("Publishing process is interrupted: Review failed!");
         }
 
         System.out.println("Publishing process is finished...");

@@ -7,8 +7,6 @@ import co.inventorsoft.academy.articleanalyzer.repository.CategoryRepository;
 import co.inventorsoft.academy.articleanalyzer.repository.UserRepository;
 import co.inventorsoft.academy.articleanalyzer.service.analyzer.AnalyzerService;
 import co.inventorsoft.academy.articleanalyzer.service.notifier.NotificationService;
-import lombok.Getter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Service;
 
@@ -16,41 +14,46 @@ import java.util.List;
 import java.util.Set;
 
 @Service
-@Getter
 public class ArticleService {
-    @Autowired
-    UserRepository userRepository;
-    @Autowired
-    ArticleRepository articleRepository;
-    @Autowired
-    CategoryRepository categoryRepository;
-    @Autowired
-    AnalyzerService analyzerService;
 
-    NotificationService notificationService;
+    private final UserRepository userRepository;
+    private final ArticleRepository articleRepository;
+    private final CategoryRepository categoryRepository;
+    private final AnalyzerService analyzerService;
+    private final ConfigurableApplicationContext applicationContext;
+
+    public ArticleService(UserRepository userRepository,
+                          ArticleRepository articleRepository,
+                          CategoryRepository categoryRepository,
+                          AnalyzerService analyzerService,
+                          ConfigurableApplicationContext applicationContext) {
+
+        this.userRepository = userRepository;
+        this.articleRepository = articleRepository;
+        this.categoryRepository = categoryRepository;
+        this.analyzerService = analyzerService;
+        this.applicationContext = applicationContext;
+
+        analyze();
+    }
 
     public void analyze() {
         Set<Article> articles = articleRepository.readAllArticles();
-        analyzerService.analyze(articles);
+        List<String> categories = analyzerService.analyze(articles);
+        saveCategoriesToJSONFileAsArray(categories);
+        notifyUsers(categories);
     }
 
-    public void saveCategoriesToJSONFileAsObject(String fileName) {
-        categoryRepository.saveCategoriesToJSONFileAsObject(analyzerService.getCategories(), fileName);
+    public void saveCategoriesToJSONFileAsArray(List<String> categories) {
+        categoryRepository.saveCategoriesToJSONFileAsArray(categories);
     }
 
-    public void saveCategoriesToJSONFileAsArray(String fileName) {
-        categoryRepository.saveCategoriesToJSONFileAsArray(analyzerService.getCategories(), fileName);
-    }
-
-    public void notifyUsers(ConfigurableApplicationContext applicationContext) {
+    private void notifyUsers(List<String> categories) {
+        NotificationService[] notificationService = new NotificationService[1];
         Set<User> users = userRepository.readAllUsers();
         users.forEach(user -> {
-            notificationService = applicationContext.getBean(String.valueOf(user.getNotificationType()), NotificationService.class);
-            notificationService.notifyUsers(user, getCategories());
+            notificationService[0] = applicationContext.getBean(String.valueOf(user.getNotificationType()), NotificationService.class);
+            notificationService[0].notifyUsers(user, categories);
         });
-    }
-
-    public List<String> getCategories() {
-        return analyzerService.getCategories();
     }
 }

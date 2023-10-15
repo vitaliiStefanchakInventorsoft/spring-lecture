@@ -1,32 +1,28 @@
 package co.inventorsoft.academy.articleanalyzer.service.analyzer;
 
 import co.inventorsoft.academy.articleanalyzer.model.Article;
-import org.springframework.beans.factory.annotation.Value;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 @Service
+@AllArgsConstructor
 public class AnalyzerService {
-    List<String> analyzeResult = new ArrayList<>();
-    @Value("${excluded.words}")
-    private String excludedWords;
+
+    private final String excludedWords;
 
     private String[] getWordsArray(Article article, String excludedWords) {
-        String[] wordsArray = article
+        return article
                 .getContent()
                 .replaceAll(excludedWords, " ")
                 .replaceAll("\\s+", " ")
                 .split(" ");
-        return wordsArray;
     }
 
     private List<Map<String, Integer>> getWordsAndRepeatCountList(Set<Article> articles, String excludedWords) {
@@ -64,24 +60,23 @@ public class AnalyzerService {
                 .orElse(0);
     }
 
-    private void collectResults(int mostRepeatedWordCount, Map<String, Integer> m) {
-        m.entrySet().forEach(kv -> {
-            if (kv.getValue().equals(mostRepeatedWordCount)) {
-                analyzeResult.add(kv.getKey().toUpperCase());
+    private List<String> collectResults(int mostRepeatedWordCount, Map<String, Integer> m) {
+        List<String> analyzeResult = new ArrayList<>();
+        m.forEach((key, value) -> {
+            if (value.equals(mostRepeatedWordCount)) {
+                analyzeResult.add(key.toUpperCase());
             }
         });
+        return analyzeResult;
     }
 
     private String getExcludedWords() {
-        String[] words = excludedWords.split(",");
-        String escapedWords = Arrays.stream(words)
-                .map(Pattern::quote)
-                .collect(Collectors.joining("|"));
-        return "\\b(" + escapedWords + ")\\b|\\W+";
+        return "\\b(" + String.join("|", excludedWords.split(",")) + ")\\b|\\W+";
     }
 
-    public void analyze(Set<Article> articles) {
-        excludedWords = getExcludedWords();
+    public List<String> analyze(Set<Article> articles) {
+        List<String> analyzeResult = new ArrayList<>();
+        String excludedWords = getExcludedWords();
         if (articles == null) {
             throw new RuntimeException("Articles are empty");
         }
@@ -89,14 +84,8 @@ public class AnalyzerService {
 
         wordsAndRepeatCountList.forEach(m -> {
             int mostRepeatedWordCount = getMostRepeatedWordCount(m);
-            collectResults(mostRepeatedWordCount, m);
+            analyzeResult.addAll(collectResults(mostRepeatedWordCount, m));
         });
-
-    }
-
-    public List<String> getCategories() {
-        if (analyzeResult == null)
-            throw new RuntimeException("Analyze all categories first");
         return analyzeResult;
     }
 }

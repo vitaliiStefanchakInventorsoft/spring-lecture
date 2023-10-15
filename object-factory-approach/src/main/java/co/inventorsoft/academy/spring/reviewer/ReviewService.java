@@ -8,12 +8,12 @@ public class ReviewService {
 
     private final ReviewType reviewType;
 
-    public void init() {
-        System.out.println("some init logic");
-    }
-
     public ReviewService(ReviewType reviewType) {
         this.reviewType = reviewType;
+    }
+
+    public void init() {
+        System.out.println("some init logic");
     }
 
     public boolean provideReview(Article article) {

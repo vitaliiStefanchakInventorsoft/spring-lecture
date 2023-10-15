@@ -1,7 +1,6 @@
 package co.inventorsoft.academy.spring;
 
 import co.inventorsoft.academy.spring.model.Article;
-import co.inventorsoft.academy.spring.notifier.NotificationService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
