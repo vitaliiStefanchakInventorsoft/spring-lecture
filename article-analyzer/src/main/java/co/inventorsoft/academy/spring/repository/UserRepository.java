@@ -22,7 +22,7 @@ public class UserRepository {
     private static final String FILE_NAME = "users.json";
 
     public List<User> getUsers() {
-        ClassPathResource resource = new ClassPathResource("users.json");
+        ClassPathResource resource = new ClassPathResource(FILE_NAME);
         try(InputStreamReader reader = new InputStreamReader(resource.getInputStream())) {
             return Arrays.asList(gson.fromJson(reader, User[].class));
         } catch (IOException e) {

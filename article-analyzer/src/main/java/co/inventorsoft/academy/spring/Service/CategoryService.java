@@ -11,12 +11,22 @@ import java.util.Set;
 @Service
 public class CategoryService {
     public Set<String> getCategories(List<List<String>> words) {
-        Map<String, Integer> wordCounts = new HashMap<>();
 
-        for (List<String> list : words) {
-            for (String word : list) {
-                wordCounts.put(word, wordCounts.getOrDefault(word, 0) + 1);
-            }
+        Set<String> categories = new HashSet<>();
+        categories.add(mostFrequentWord(words.get(0)));
+        categories.add(mostFrequentWord(words.get(1)));
+        categories.add(mostFrequentWord(words.get(2)));
+        for (List<String> category: words) {
+            categories.add(mostFrequentWord(category));
+        }
+        return categories;
+    }
+
+    private String mostFrequentWord(List<String> words) {
+        Map<String, Integer> wordCounts = new HashMap<>();
+        String category = "";
+        for (String word : words) {
+            wordCounts.put(word, wordCounts.getOrDefault(word, 0) + 1);
         }
 
         int maxCount = 0;
@@ -24,13 +34,12 @@ public class CategoryService {
             maxCount = Math.max(maxCount, count);
         }
 
-        Set<String> categories = new HashSet<>();
         for (Map.Entry<String, Integer> entry : wordCounts.entrySet()) {
             if (entry.getValue() == maxCount) {
-                categories.add(entry.getKey());
+                category = entry.getKey();
             }
         }
 
-        return categories;
+        return category;
     }
 }
