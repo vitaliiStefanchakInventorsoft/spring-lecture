@@ -12,15 +12,15 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 public class NotificationManager {
-    private UserService userService;
-    private EmailNotificationService emailNotificationService;
-    private SlackNotificationService slackNotificationService;
+    private final UserService userService;
+    private final EmailNotificationService emailNotificationService;
+    private final SlackNotificationService slackNotificationService;
 
     public void sendNotification() {
         List<User> users = userService.getUsers();
         users.forEach(user -> {
             switch (user.getNotificationType()) {
-                case EMAIl -> emailNotificationService.notify(user, "Email notification");
+                case EMAIL -> emailNotificationService.notify(user, "Email notification");
                 case SLACK -> slackNotificationService.notify(user, "Slack message notification");
                 default -> System.out.println("Unsupported type notification");
             }

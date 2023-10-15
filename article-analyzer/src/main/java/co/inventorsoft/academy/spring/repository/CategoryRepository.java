@@ -12,7 +12,7 @@ import java.util.Set;
 @Repository
 @AllArgsConstructor
 public class CategoryRepository {
-    private Gson gson;
+    private final Gson gson;
     private static final String FILE_PATH = "article-analyzer/src/main/resources/categories.json";
 
     public void saveCategories(Set<String> categories) {

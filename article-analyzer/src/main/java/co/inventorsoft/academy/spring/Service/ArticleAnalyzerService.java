@@ -10,10 +10,10 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 public class ArticleAnalyzerService {
-    private ArticleService articleService;
-    private CategoryService categoryService;
-    private CategoryRepository categoryRepository;
-    private NotificationManager notificationManager;
+    private final ArticleService articleService;
+    private final CategoryService categoryService;
+    private final CategoryRepository categoryRepository;
+    private final NotificationManager notificationManager;
 
     public void analyze() {
         List<List<String>> words = articleService.getArticleWords();

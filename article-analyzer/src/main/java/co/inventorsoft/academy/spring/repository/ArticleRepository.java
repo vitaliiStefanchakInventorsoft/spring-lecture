@@ -21,10 +21,11 @@ import java.util.List;
 @Repository
 @AllArgsConstructor
 public class ArticleRepository {
-    private Gson gson;
+    private final Gson gson;
+    private static final String FILE_NAME = "articles.json";
 
     public List<Article> getArticles() {
-        ClassPathResource resource = new ClassPathResource("articles.json");
+        ClassPathResource resource = new ClassPathResource(FILE_NAME);
         try(InputStreamReader reader = new InputStreamReader(resource.getInputStream())) {
             return Arrays.asList(gson.fromJson(reader, Article[].class));
         } catch (IOException e) {

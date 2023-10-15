@@ -18,7 +18,7 @@ import java.util.List;
 @Repository
 @AllArgsConstructor
 public class UserRepository {
-    private Gson gson;
+    private final Gson gson;
     private static final String FILE_NAME = "users.json";
 
     public List<User> getUsers() {
