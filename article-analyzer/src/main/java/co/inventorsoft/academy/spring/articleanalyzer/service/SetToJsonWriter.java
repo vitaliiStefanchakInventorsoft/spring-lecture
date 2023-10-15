@@ -3,7 +3,6 @@ package co.inventorsoft.academy.spring.articleanalyzer.service;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Set;

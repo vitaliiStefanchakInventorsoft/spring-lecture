@@ -1,9 +1,9 @@
 package co.inventorsoft.academy.spring.articleanalyzer.service;
+
 import co.inventorsoft.academy.spring.articleanalyzer.model.Article;
 import co.inventorsoft.academy.spring.articleanalyzer.repository.ArticleRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;

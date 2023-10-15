@@ -6,7 +6,6 @@ import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
-
 import java.io.FileReader;
 import java.io.IOException;
 import java.lang.reflect.Type;
