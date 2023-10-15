@@ -1,7 +1,7 @@
 package co.inventorsoft.academy.articleanalyzer.service.analyzer;
 
 import co.inventorsoft.academy.articleanalyzer.model.Article;
-import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -12,10 +12,10 @@ import java.util.Map;
 import java.util.Set;
 
 @Service
-@AllArgsConstructor
 public class AnalyzerService {
 
-    private final String excludedWords;
+    @Value("${excluded.words}")
+    private String excludedWords;
 
     private String[] getWordsArray(Article article, String excludedWords) {
         return article

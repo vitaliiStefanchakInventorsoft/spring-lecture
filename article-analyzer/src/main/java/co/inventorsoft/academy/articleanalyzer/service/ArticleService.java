@@ -49,11 +49,10 @@ public class ArticleService {
     }
 
     private void notifyUsers(List<String> categories) {
-        NotificationService[] notificationService = new NotificationService[1];
         Set<User> users = userRepository.readAllUsers();
         users.forEach(user -> {
-            notificationService[0] = applicationContext.getBean(String.valueOf(user.getNotificationType()), NotificationService.class);
-            notificationService[0].notifyUsers(user, categories);
+            applicationContext.getBean(String.valueOf(user.getNotificationType()), NotificationService.class)
+                    .notifyUsers(user, categories);
         });
     }
 }

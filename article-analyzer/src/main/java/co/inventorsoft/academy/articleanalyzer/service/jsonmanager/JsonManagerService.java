@@ -1,7 +1,6 @@
 package co.inventorsoft.academy.articleanalyzer.service.jsonmanager;
 
 import com.google.gson.Gson;
-import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.io.FileReader;
@@ -12,11 +11,16 @@ import java.util.List;
 import java.util.Set;
 
 @Service
-@AllArgsConstructor
 public class JsonManagerService<T> {
 
     private final Gson gson;
+
     private final String projectRoot;
+
+    public JsonManagerService(Gson gson) {
+        this.gson = gson;
+        this.projectRoot = System.getProperty("user.dir");
+    }
 
     public Set<T> readAll(String path, Type type) {
 
