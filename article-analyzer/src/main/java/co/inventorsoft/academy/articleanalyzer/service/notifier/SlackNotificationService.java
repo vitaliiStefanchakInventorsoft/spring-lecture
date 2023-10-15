@@ -7,7 +7,7 @@ import java.util.List;
 @Component("SLACK")
 public class SlackNotificationService extends NotificationService {
     @Override
-    public void notifyUsers(List<String> categories) {
+    protected void notifyUsers(List<String> categories) {
         System.out.println("----> Slack");
         System.out.println(categories);
     }

@@ -14,5 +14,5 @@ abstract public class NotificationService {
         System.out.println("*************************************");
     }
 
-    abstract public void notifyUsers(List<String> categories);
+    abstract protected void notifyUsers(List<String> categories);
 }

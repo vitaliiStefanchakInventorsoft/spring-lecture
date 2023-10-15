@@ -8,5 +8,5 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 public class Categories {
-    List<String> categories;
+    private List<String> categories;
 }
