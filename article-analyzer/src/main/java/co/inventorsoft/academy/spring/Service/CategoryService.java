@@ -13,18 +13,15 @@ public class CategoryService {
     public Set<String> getCategories(List<List<String>> words) {
 
         Set<String> categories = new HashSet<>();
-        categories.add(mostFrequentWord(words.get(0)));
-        categories.add(mostFrequentWord(words.get(1)));
-        categories.add(mostFrequentWord(words.get(2)));
-        for (List<String> category: words) {
-            categories.add(mostFrequentWord(category));
+        for (List<String> word: words) {
+            categories.add(mostFrequentWord(word));
         }
         return categories;
     }
 
     private String mostFrequentWord(List<String> words) {
         Map<String, Integer> wordCounts = new HashMap<>();
-        String category = "";
+        StringBuilder category = new StringBuilder();
         for (String word : words) {
             wordCounts.put(word, wordCounts.getOrDefault(word, 0) + 1);
         }
@@ -36,10 +33,10 @@ public class CategoryService {
 
         for (Map.Entry<String, Integer> entry : wordCounts.entrySet()) {
             if (entry.getValue() == maxCount) {
-                category = entry.getKey();
+                category.append(entry.getKey()).append(" ");
             }
         }
 
-        return category;
+        return category.toString().trim();
     }
 }

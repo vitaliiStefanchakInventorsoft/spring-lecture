@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 @AllArgsConstructor
@@ -17,7 +18,8 @@ public class ArticleAnalyzerService {
 
     public void analyze() {
         List<List<String>> words = articleService.getArticleWords();
-        categoryRepository.saveCategories(categoryService.getCategories(words));
+        Set<String> categories = categoryService.getCategories(words);
+        categoryRepository.saveCategories(categories);
         notificationManager.sendNotification();
     }
 }
