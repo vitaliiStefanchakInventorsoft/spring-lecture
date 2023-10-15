@@ -2,7 +2,6 @@ package co.inventorsoft.academy.spring.services;
 
 import co.inventorsoft.academy.spring.models.User;
 import co.inventorsoft.academy.spring.repositories.UserRepository;
-import java.util.Optional;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,7 +24,7 @@ public class UserService {
         return userRepository.getAllUsers();
     }
 
-    public Optional<User> getUserById(Long userId){
+    public User getUserById(Long userId){
         return userRepository.getUserById(userId);
     }
 

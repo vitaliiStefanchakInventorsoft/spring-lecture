@@ -2,7 +2,6 @@ package co.inventorsoft.academy.spring.repositories;
 
 import co.inventorsoft.academy.spring.models.Article;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -26,9 +25,8 @@ public class ArticleRepository {
     private final Gson gson;
 
     @Autowired
-    public ArticleRepository() {
-        this.gson = new GsonBuilder()
-            .create();
+    public ArticleRepository(Gson gson) {
+        this.gson = gson;
     }
 
     public List<Article> getArticles(){

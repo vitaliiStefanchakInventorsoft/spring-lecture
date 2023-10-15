@@ -9,5 +9,5 @@ import org.springframework.stereotype.Service;
 @Service
 public interface NotificationService {
 
-    boolean notifyUser(Long userId, String notification);
+    void notifyUser(Long userId, String notification);
 }

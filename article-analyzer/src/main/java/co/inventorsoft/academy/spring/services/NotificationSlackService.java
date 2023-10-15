@@ -16,18 +16,12 @@ public class NotificationSlackService implements NotificationService {
     }
 
     @Override
-    public boolean notifyUser(Long userId, String notification){
-        User currentUser = this.userService.getUserById(userId).orElseGet(() -> User.builder()
-            .email("userNotFound@mail.com")
-            .username("userNotFound")
-            .slackId("userNotFound")
-            .build()
-        );
+    public void notifyUser(Long userId, String notification){
+        User currentUser = this.userService.getUserById(userId);
 
         if(currentUser.getNotificationType().equals(NotificationType.SLACK)){
             System.out.println("Dear " + currentUser.getUsername() + ", you have new notification:\n" + notification);
         }
 
-        return !currentUser.getEmail().equals("userNotFound@mail.com");
     }
 }

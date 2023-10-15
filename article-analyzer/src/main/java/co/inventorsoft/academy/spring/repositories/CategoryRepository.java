@@ -1,7 +1,6 @@
 package co.inventorsoft.academy.spring.repositories;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
@@ -23,8 +22,8 @@ public class CategoryRepository {
     private final Gson gson;
 
     @Autowired
-    public CategoryRepository() {
-        this.gson = new GsonBuilder().create();
+    public CategoryRepository(Gson gson) {
+        this.gson = gson;
     }
 
     public void saveCategories(Set<String> categories){

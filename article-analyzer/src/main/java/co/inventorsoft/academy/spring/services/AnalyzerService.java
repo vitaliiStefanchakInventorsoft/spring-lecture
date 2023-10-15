@@ -33,12 +33,14 @@ public class AnalyzerService {
         this.categoriesService.processCategories(this.articleService.getAllArticles());
 
         for (User user : this.userService.getAllUsers()){
-            boolean res = user.getNotificationType().equals(NotificationType.EMAIL)
-                ? this.notificationEmailService.notifyUser(user.getId(), "Your articles has been proceeded email")
-                : this.notificationSlackService.notifyUser(user.getId(), "Your articles has been proceeded slack");
-            if(!res){
-                throw new IllegalArgumentException("User not found");
+            if (user.getNotificationType().equals(NotificationType.EMAIL)) {
+                this.notificationEmailService.notifyUser(user.getId(),
+                    "Your articles has been proceeded email");
+            } else {
+                this.notificationSlackService.notifyUser(user.getId(),
+                    "Your articles has been proceeded slack");
             }
+
         }
     }
 }
