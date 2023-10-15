@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 
 /**
- * Analyzer service.
+ * Analyzer service who operates notifications, articles, users and categories services.
  */
 @Service
 public class AnalyzerService {
@@ -31,6 +31,7 @@ public class AnalyzerService {
 
     public void analyze(){
         this.categoriesService.processCategories(this.articleService.getAllArticles());
+
         for (User user : this.userService.getAllUsers()){
             boolean res = user.getNotificationType().equals(NotificationType.EMAIL)
                 ? this.notificationEmailService.notifyUser(user.getId(), "Your articles has been proceeded email")

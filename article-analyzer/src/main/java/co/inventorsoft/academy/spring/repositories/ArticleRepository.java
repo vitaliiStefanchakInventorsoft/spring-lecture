@@ -1,8 +1,6 @@
 package co.inventorsoft.academy.spring.repositories;
 
 import co.inventorsoft.academy.spring.models.Article;
-import co.inventorsoft.academy.spring.utils.UUIDDeserializer;
-import co.inventorsoft.academy.spring.utils.UUIDSerializer;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -13,17 +11,15 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
 
 /**
- * Data access layer for Article entity.
+ * Data access layer for Article entity to get them from json file using Gson library.
  */
 @Repository
-//public interface ArticleRepository extends JpaRepository<Article, UUID> {
 public class ArticleRepository {
     @Value("${ARTICLES_FILE}")
     String articlesFile;
@@ -32,8 +28,6 @@ public class ArticleRepository {
     @Autowired
     public ArticleRepository() {
         this.gson = new GsonBuilder()
-            .registerTypeAdapter(UUID.class, new UUIDDeserializer())
-            .registerTypeAdapter(UUID.class, new UUIDSerializer())
             .create();
     }
 

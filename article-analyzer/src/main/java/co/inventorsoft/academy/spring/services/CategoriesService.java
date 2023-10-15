@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 
 
 /**
- * Categories service.
+ * Categories service to process articles into categories and operate category repository.
  */
 @Service
 public class CategoriesService {
@@ -68,7 +68,8 @@ public class CategoriesService {
     }
 
     public void processCategories(List<Article> articles){
-        saveCategories(processArticlesIntoCategories(articles));
+        Set<String> categories = processArticlesIntoCategories(articles);
+        saveCategories(categories);
     }
 
 

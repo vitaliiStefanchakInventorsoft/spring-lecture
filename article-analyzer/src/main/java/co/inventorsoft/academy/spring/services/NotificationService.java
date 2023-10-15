@@ -1,14 +1,13 @@
 package co.inventorsoft.academy.spring.services;
 
-import java.util.UUID;
 import org.springframework.stereotype.Service;
 
 
 /**
- * Notification service.
+ * Notification service interface to store common used operations.
  */
 @Service
 public interface NotificationService {
 
-    boolean notifyUser(UUID userId, String notification);
+    boolean notifyUser(Long userId, String notification);
 }

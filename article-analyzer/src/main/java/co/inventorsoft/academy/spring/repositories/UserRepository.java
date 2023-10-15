@@ -1,8 +1,6 @@
 package co.inventorsoft.academy.spring.repositories;
 
 import co.inventorsoft.academy.spring.models.User;
-import co.inventorsoft.academy.spring.utils.UUIDDeserializer;
-import co.inventorsoft.academy.spring.utils.UUIDSerializer;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -14,16 +12,14 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
-import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
 /**
- * Data access layer for User entity.
+ * Data access layer for User entity to get them from json file using Gson library.
  */
 @Repository
-//public interface UserRepository extends JpaRepository<User, UUID> {
 public class UserRepository {
     @Value("${USERS_FILE}")
     String usersFile;
@@ -32,8 +28,6 @@ public class UserRepository {
     @Autowired
     public UserRepository() {
         this.gson = new GsonBuilder()
-            .registerTypeAdapter(UUID.class, new UUIDDeserializer())
-            .registerTypeAdapter(UUID.class, new UUIDSerializer())
             .create();
     }
 
@@ -47,7 +41,7 @@ public class UserRepository {
         }
         return new HashSet<>();
     }
-    public Optional<User> getUserById(UUID userId){
+    public Optional<User> getUserById(Long userId){
         for(User user : getAllUsers()){
             if(user.getId().equals(userId)){
                 return Optional.of(user);

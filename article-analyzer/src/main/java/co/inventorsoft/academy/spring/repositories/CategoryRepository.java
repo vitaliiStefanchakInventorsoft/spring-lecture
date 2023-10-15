@@ -14,7 +14,7 @@ import org.springframework.stereotype.Repository;
 
 
 /**
- * Data access layer for Categories.
+ * Data access layer for Categories to save them into json file after articles been processed into categories.
  */
 @Repository
 public class CategoryRepository {

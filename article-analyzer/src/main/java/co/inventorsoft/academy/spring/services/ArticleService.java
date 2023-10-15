@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 
 /**
- * Article service.
+ * Article service to operate article repository and make further actions in case of necessity.
  */
 @Service
 public class ArticleService {

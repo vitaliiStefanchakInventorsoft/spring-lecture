@@ -4,13 +4,12 @@ import co.inventorsoft.academy.spring.models.User;
 import co.inventorsoft.academy.spring.repositories.UserRepository;
 import java.util.Optional;
 import java.util.Set;
-import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
 /**
- * User service.
+ * User service to operate user repository and make further actions.
  */
 
 @Service
@@ -26,7 +25,7 @@ public class UserService {
         return userRepository.getAllUsers();
     }
 
-    public Optional<User> getUserById(UUID userId){
+    public Optional<User> getUserById(Long userId){
         return userRepository.getUserById(userId);
     }
 
