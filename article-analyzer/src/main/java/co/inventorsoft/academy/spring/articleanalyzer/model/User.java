@@ -1,9 +1,7 @@
 package co.inventorsoft.academy.spring.articleanalyzer.model;
 
 import lombok.Getter;
-import org.springframework.stereotype.Component;
 
-@Component
 public class User {
     private Long id;
     private String username;
@@ -19,9 +17,6 @@ public class User {
         this.email = email;
         this.slackId = slackId;
         this.notificationType = notificationType;
-    }
-
-    public User() {
     }
 
     public String toString() {

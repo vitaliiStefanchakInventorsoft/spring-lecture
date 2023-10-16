@@ -6,7 +6,7 @@ import com.google.gson.Gson;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
-@Service("slackNotificationService")
+@Service
 public class SlackNotificationService extends NotificationService {
     public SlackNotificationService(UserRepository userRepository, Gson gson, ApplicationContext context) {
         super(userRepository, gson, context);

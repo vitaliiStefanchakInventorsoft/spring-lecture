@@ -6,7 +6,7 @@ import com.google.gson.Gson;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
-@Service("emailNotificationService")
+@Service
 public class EmailNotificationService extends NotificationService {
     public EmailNotificationService(UserRepository userRepository, Gson gson, ApplicationContext context) {
         super(userRepository, gson, context);

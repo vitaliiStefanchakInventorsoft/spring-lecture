@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Set;
 
-@Service("notificationService")
+@Service
 public abstract class NotificationService {
     private final UserRepository userRepository;
     private final Gson gson;
@@ -21,7 +21,6 @@ public abstract class NotificationService {
         this.context = context;
     }
 
-    // Notify all users about the result
     public void notify(Set<String> result) {
         System.out.println("Notifying about result...");
         String jsonResult = gson.toJson(result);
@@ -34,6 +33,5 @@ public abstract class NotificationService {
             });
     }
 
-    // Notify a single user about the result
     protected abstract void notifyUser(User user, String content);
 }

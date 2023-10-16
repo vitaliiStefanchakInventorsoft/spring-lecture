@@ -10,22 +10,11 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-@Service("categoryService")
+@Service
 public class CategoryService {
-    private final List<String> excludedWords;
-    private final ArticleRepository articleRepository;
+    @Value("${excluded.words}")
+    private List<String> excludedWords;
 
-    public CategoryService(ArticleRepository articleRepository, @Value("${excluded.words}") List<String> excludedWords) {
-        this.articleRepository = articleRepository;
-        this.excludedWords = excludedWords;
-    }
-
-    // Return the set of categories that are most common across all articles in the default file
-    public Set<String> findMostCommonCategories() {
-        return findMostCommonCategories(articleRepository.fetchAllArticles());
-    }
-
-    // Return the set of categories that are most common across all articles
     public Set<String> findMostCommonCategories(List<Article> articles) {
         return articles.stream()
                 .map(this::findMostCommonCategories)
@@ -33,7 +22,6 @@ public class CategoryService {
                 .collect(Collectors.toSet());
     }
 
-    // Return the set of categories that are most common in the given article
     public Set<String> findMostCommonCategories(Article article) {
         Map<String, Long> wordFrequency = getWordCountMap(getWords(article));
 
@@ -45,12 +33,10 @@ public class CategoryService {
                 .collect(Collectors.toSet());
     }
 
-    // Split the article content into words
     private static String[] getWords(Article article) {
         return article.getContent().split("\\s+");
     }
 
-    // Return a map of words to their frequency in the given article
     private Map<String, Long> getWordCountMap(String[] words) {
         return Arrays.stream(words)
                 .map(word -> word.replaceAll("[^a-zA-Z]", "").toLowerCase())

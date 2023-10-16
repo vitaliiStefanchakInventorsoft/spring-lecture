@@ -28,9 +28,9 @@ public class ArticleAnalyzer {
     }
 
     public void analyze() {
-        List<Article> articles = articleRepository.fetchAllArticles(); // Fetch all articles from the default file
-        Set<String> categories = categoryService.findMostCommonCategories(articles); // Find the most common categories
-        setToJsonWriter.write(categories); // Write the categories to the default file
-        notificationService.notify(categoryService.findMostCommonCategories(articles)); // Notify subscribers about the new article
+        List<Article> articles = articleRepository.fetchAllArticles();
+        Set<String> categories = categoryService.findMostCommonCategories(articles);
+        setToJsonWriter.write(categories);
+        notificationService.notify(categoryService.findMostCommonCategories(articles));
     }
 }
