@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 public class SlackNotificationService extends NotificationService {
     @Override
     public void notifyUsers(User user, String categories) {
-        System.out.printf(">>> Sending Slack message ---> Header: Hello subscriber %s! Here is a list of categories | Content: %s%n", user.getUsername(), categories);
+        System.out.printf("\n>>> Sending Slack message ---> Header: Hello subscriber %s! " +
+                "Here is a list of categories | Content: %s%n", user.getUsername(), categories);
     }
 }

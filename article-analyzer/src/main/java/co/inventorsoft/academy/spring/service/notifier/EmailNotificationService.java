@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 public class EmailNotificationService extends NotificationService {
     @Override
     public void notifyUsers(User user, String categories) {
-        System.out.printf(">>> Sending email ---> Header: Hello subscriber %s! Here is a list of categories | Content: %s%n", user.getUsername(), categories);
+        System.out.printf("\n>>> Sending email ---> Header: Hello subscriber %s! " +
+                "Here is a list of categories | Content: %s%n", user.getUsername(), categories);
     }
 }
