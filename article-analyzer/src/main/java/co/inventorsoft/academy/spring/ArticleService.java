@@ -41,7 +41,7 @@ public class ArticleService {
     }
 
     public void pushNotifications() {
-        System.out.println("Starting notification process...");
+        System.out.println("\nStarting notification process...");
         Set<String> categories = categoryRepository.getCategoriesFromJson();
         List<User> users = userRepository.getUsersFromJson();
 
@@ -49,7 +49,6 @@ public class ArticleService {
 
         for (User user : users) {
             NotificationService service = notificationServiceFactory.getService(user.getNotificationType());
-
             service.notifyUsers(user, jsonCategories);
         }
     }

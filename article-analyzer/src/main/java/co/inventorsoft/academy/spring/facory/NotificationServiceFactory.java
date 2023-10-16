@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class NotificationServiceFactory {
     private final EmailNotificationService emailNotificationService;
-
     private final SlackNotificationService slackNotificationService;
 
     @Autowired
