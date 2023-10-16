@@ -1,10 +1,12 @@
 package com.articleanalyzer.core.services;
 
-import com.articleanalyzer.core.repository.CategoryRepository;
-import com.google.gson.Gson;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Set;
+import java.util.Map;
+import java.util.List;
+import java.util.HashSet;
 
 @Service
 public class CategoryService {

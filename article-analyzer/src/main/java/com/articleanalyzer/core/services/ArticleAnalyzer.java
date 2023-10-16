@@ -1,12 +1,8 @@
 package com.articleanalyzer.core.services;
 
-import com.articleanalyzer.core.models.User;
 import com.articleanalyzer.core.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-
-import java.util.*;
 
 @Service
 public class ArticleAnalyzer {
@@ -22,7 +18,8 @@ public class ArticleAnalyzer {
     }
 
     public void analyze() {
-        categoryRepository.saveCategories(categoryService.getCategories());
+        var categories = categoryService.getCategories();
+        categoryRepository.saveCategories(categories );
         userNotifier.notifyUsers();
     }
 }

@@ -13,7 +13,6 @@ import java.util.List;
 @Service
 public class ArticleService {
     private final ArticleRepository articleRepository;
-
     @Value("${helper.words}")
     private String excludedWordsString;
 
