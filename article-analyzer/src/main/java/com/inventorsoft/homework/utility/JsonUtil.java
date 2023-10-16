@@ -16,8 +16,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class JsonUtil {
 
-  private Gson gson = new Gson();
-
   public <T> List<T> readFromJson(String fileName, Class<T[]> clazz) {
     Gson gson = new Gson();
     try (InputStream is = getClass().getClassLoader().getResourceAsStream(fileName);
