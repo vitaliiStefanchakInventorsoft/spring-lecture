@@ -1,8 +1,7 @@
 package co.inventorsoft.academy.spring;
 
-import co.inventorsoft.academy.spring.factory.NotificationFactory;
+import co.inventorsoft.academy.spring.facory.NotificationServiceFactory;
 import co.inventorsoft.academy.spring.model.User;
-import co.inventorsoft.academy.spring.repository.ArticleRepository;
 import co.inventorsoft.academy.spring.repository.CategoryRepository;
 import co.inventorsoft.academy.spring.repository.UserRepository;
 import co.inventorsoft.academy.spring.service.CategoryFileService;
@@ -10,13 +9,7 @@ import co.inventorsoft.academy.spring.service.CategoryService;
 import co.inventorsoft.academy.spring.service.notifier.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import co.inventorsoft.academy.spring.repository.UserRepository;
 import com.google.gson.Gson;
-
-
-import java.util.List;
-import java.util.Set;
-
 
 import java.util.List;
 import java.util.Set;
@@ -28,6 +21,8 @@ public class ArticleService {
     private final CategoryFileService categoryFileService;
     private final NotificationServiceFactory notificationServiceFactory;
     private final UserRepository userRepository;
+    @Autowired
+    private Gson gson;
 
     @Autowired
     public ArticleService(CategoryRepository categoryRepository, CategoryService categoryService,
@@ -49,6 +44,7 @@ public class ArticleService {
         System.out.println("Starting notification process...");
         Set<String> categories = categoryRepository.getCategoriesFromJson();
         List<User> users = userRepository.getUsersFromJson();
+
         String jsonCategories = gson.toJson(categories);
 
         for (User user : users) {

@@ -3,6 +3,7 @@ package co.inventorsoft.academy.spring.repository;
 import co.inventorsoft.academy.spring.model.User;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.io.InputStream;
@@ -15,6 +16,8 @@ import java.util.Optional;
 
 @Repository
 public class UserRepository {
+    @Autowired
+    private Gson gson;
 
     public List<User> getUsersFromJson() {
         InputStream is = getClass().getResourceAsStream("/users.json");
@@ -26,6 +29,6 @@ public class UserRepository {
 
         Type userListType = new TypeToken<ArrayList<User>>() {}.getType();
 
-        return new Gson().fromJson(new InputStreamReader(isOpt.get()), userListType);
+        return gson.fromJson(new InputStreamReader(isOpt.get()), userListType);
     }
 }
