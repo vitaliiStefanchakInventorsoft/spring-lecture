@@ -9,6 +9,7 @@ import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -17,7 +18,7 @@ public class ArticleService {
   private final Set<String> excludedWordsSet;
 
   @Autowired
-  public ArticleService(Set<String> excludedWordsSet) {
+  public ArticleService(@Value("${excluded.words}") Set<String> excludedWordsSet) {
     this.excludedWordsSet = excludedWordsSet;
   }
 

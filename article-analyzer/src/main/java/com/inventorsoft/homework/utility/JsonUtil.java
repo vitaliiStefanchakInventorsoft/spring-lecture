@@ -11,13 +11,20 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class JsonUtil {
 
+  private final Gson gson;
+
+  @Autowired
+  public JsonUtil(Gson gson) {
+    this.gson = gson;
+  }
+
   public <T> List<T> readFromJson(String fileName, Class<T[]> clazz) {
-    Gson gson = new Gson();
     try (InputStream is = getClass().getClassLoader().getResourceAsStream(fileName);
         Reader reader = new InputStreamReader(is, StandardCharsets.UTF_8)) {
       T[] array = gson.fromJson(reader, clazz);
@@ -29,7 +36,6 @@ public class JsonUtil {
   }
 
   public void saveToJson(String fileName, Set<String> set) {
-    Gson gson = new Gson();
     String fullPath = "article-analyzer/src/main/resources/" + fileName;
     try {
       FileWriter myWriter = new FileWriter(fullPath);

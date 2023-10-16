@@ -11,17 +11,19 @@ import org.springframework.stereotype.Service;
 @Service
 public class ArticleAnalyzerService {
 
-  @Autowired
   private ArticleService articleService;
-
-  @Autowired
   private EmailNotificationService emailService;
-
-  @Autowired
   private SlackNotificationService slackService;
+  private JsonUtil jsonUtil;
 
   @Autowired
-  private JsonUtil jsonUtil;
+  public ArticleAnalyzerService(ArticleService articleService, EmailNotificationService emailService,
+      SlackNotificationService slackService, JsonUtil jsonUtil) {
+    this.articleService = articleService;
+    this.emailService = emailService;
+    this.slackService = slackService;
+    this.jsonUtil = jsonUtil;
+  }
 
   public void processArticlesAndNotify() {
     List<Article> articles = jsonUtil.readFromJson("articles.json", Article[].class);
