@@ -4,7 +4,7 @@ import co.inventorsoft.academy.spring.model.User;
 
 public class EmailNotificationService extends NotificationService {
     @Override
-    protected void notifyUsers(User user, String categories) {
+    public void notifyUsers(User user, String categories) {
         System.out.printf(">>> Sending email ---> Header: Hello subscriber %s! Here is a list of categories | Content: %s%n", user.getEmail(), categories);
     }
 }
