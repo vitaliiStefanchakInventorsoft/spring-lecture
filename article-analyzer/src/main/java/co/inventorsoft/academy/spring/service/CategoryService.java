@@ -16,10 +16,14 @@ import java.util.Set;
 
 @Service
 public class CategoryService {
+    private final HelperWordsProperties helperWordsProperties;
+    private final ArticleRepository articleRepository;
+
     @Autowired
-    private HelperWordsProperties helperWordsProperties;
-    @Autowired
-    private ArticleRepository articleRepository;
+    public CategoryService(HelperWordsProperties helperWordsProperties, ArticleRepository articleRepository) {
+        this.helperWordsProperties = helperWordsProperties;
+        this.articleRepository = articleRepository;
+    }
 
     public Set<String> extractCategories() {
         Set<String> result = new HashSet<>();
