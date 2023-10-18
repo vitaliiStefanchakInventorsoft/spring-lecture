@@ -3,6 +3,7 @@ package com.reader.article_analyzer;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.util.Set;
 
 @Component
 public class Analyzer {
@@ -18,8 +19,8 @@ public class Analyzer {
     }
 
     public void analyze() throws IOException {
-        articleCategoryAnalyzer.analyzeArticleContent("articles.json");
-        articleCategorySaver.saveCategories();
+        Set<String> categories = articleCategoryAnalyzer.analyzeArticleContent("articles.json");
+        articleCategorySaver.saveCategories(categories);
         userNotifier.notifyUsersAboutCategoryChanges();
     }
 }

@@ -3,18 +3,17 @@ package com.reader.article_analyzer;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.util.Set;
 
 @Component
 public class ArticleCategorySaver {
-    private final ArticleCategoryAnalyzer articleCategoryAnalyzer;
     private final JsonFileService jsonFileService;
 
-    public ArticleCategorySaver(ArticleCategoryAnalyzer articleCategoryAnalyzer, JsonFileService jsonFileService) {
-        this.articleCategoryAnalyzer = articleCategoryAnalyzer;
+    public ArticleCategorySaver(JsonFileService jsonFileService) {
         this.jsonFileService = jsonFileService;
     }
 
-    public void saveCategories() throws IOException {
-        jsonFileService.writeJsonFile(articleCategoryAnalyzer.analyzeArticleContent("articles.json").stream().toList());
+    public void saveCategories(Set<String> categories) throws IOException {
+        jsonFileService.writeJsonFile(categories);
     }
 }
