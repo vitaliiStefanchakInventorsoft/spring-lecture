@@ -14,7 +14,7 @@ public class ArticleCategorySaver {
         this.jsonFileService = jsonFileService;
     }
 
-    public void articlesSaver() throws IOException {
+    public void saveArticles() throws IOException {
         jsonFileService.writeJsonFile(articleCategoryAnalyzer.analyzeArticleContent("articles.json").stream().toList());
     }
 }
