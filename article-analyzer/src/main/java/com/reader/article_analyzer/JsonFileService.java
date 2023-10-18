@@ -2,7 +2,6 @@ package com.reader.article_analyzer;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
@@ -12,7 +11,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class JsonFileService {
@@ -32,7 +30,7 @@ public class JsonFileService {
         }
     }
 
-    public <T> void writeJsonFile(List<Set<String>> list) {
+    public <T> void writeJsonFile(List<String> list) {
         String gsonString = gson.toJson(list);
         try (FileWriter fileWriter = new FileWriter("categories.json")) {
             fileWriter.write(gsonString);

@@ -11,20 +11,13 @@ import java.util.*;
 public class ArticleCategoryAnalyzer {
     private final JsonFileService fileService;
     private final String[] excludedWordsArray;
-    private final List<Set<String>> allCategories;
-
-    //retrieve categories in class ArticleCategorySaver
-    public final List<Set<String>> getAllCategories() {
-        return allCategories;
-    }
-    
     public ArticleCategoryAnalyzer(@Value("${excluded.words}") String excludedWords, JsonFileService fileService) {
         this.excludedWordsArray = excludedWords.split(", ");
         this.fileService = fileService;
-        this.allCategories = new ArrayList<>();
     }
 
-    public List<Set<String>> analyzeArticleContent(String filePath) throws IOException {
+    public Set<String> analyzeArticleContent(String filePath) throws IOException {
+        HashSet<String> allCategories = new HashSet<>();
         List<Article> articles = fileService.readJsonFile(filePath, Article.class).stream().toList();
         String result;
         for (Article article : articles) {
@@ -55,7 +48,7 @@ public class ArticleCategoryAnalyzer {
                     categories.add(entry.getKey());
                 }
             }
-            allCategories.add(categories);
+           allCategories.add(categories.toString());
         }
         return allCategories;
     }
